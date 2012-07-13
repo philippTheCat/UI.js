@@ -102,11 +102,23 @@ class UIRowLayout extends UIBase
 		@rows[row].push content
 
 
+class UIList extends UIBase
+	constructor: (@items) ->
+
+	draw: () ->
+		list = "<ul class=\"UIList\">"
+		for item in @items
+			list = list + """<li class="underlined">#{item}</li>"""
+
+		list + "</ul>"
+
+
 UI = {
-	"UIWidget":UIWidget,
-	"UIText":UIText,
-	"UINavigation":UINavigation,
-	"UIRowLayout":UIRowLayout
+	"Widget":UIWidget,
+	"Text":UIText,
+	"Navigation":UINavigation,
+	"RowLayout":UIRowLayout,
+	"List":UIList
 }
 
 window.UI = UI;

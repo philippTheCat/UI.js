@@ -4,16 +4,17 @@
 		<script type="text/javascript" src="js/JQuery.js"></script>
 		<script type="text/javascript" src="js/ui.js"></script>
 		<link href="css/ui.css" rel="stylesheet" type="text/css">
+		<link href="css/reset.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript">
 
 		$().ready(function(){
-			widget = new UI.UIWidget(800,600,10);
+			widget = new UI.Widget(800,600,10);
 
-			nav = new UI.UINavigation([["#url","text1"],["#url2","text2"]]);
-			lay = new UI.UIRowLayout(3);
-			textl = new UI.UIText();
-			textc = new UI.UIText();
-			textr = new UI.UIText();
+			nav = new UI.Navigation([["#url","text1"],["#url2","text2"]]);
+			lay = new UI.RowLayout(3);
+			textl = new UI.Text();
+			textc = new UI.List(["row1","row2","row3","row4"]);
+			textr = new UI.Text();
 
 			lay.set_row(0,textl);
 			lay.set_row(1,textc);

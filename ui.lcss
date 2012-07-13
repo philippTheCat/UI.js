@@ -2,7 +2,7 @@
 @lines: #484848;
 @col: #aaa;
 @stdpadding: 10px;
-
+@border: 1px solid @lines;
 a:link, a:visited, a:active, a:hover {
 	color: @col;
 }
@@ -30,12 +30,16 @@ a:hover {
 		display: inline-block;
 		margin-left: @stdpadding;
 		padding-left: @stdpadding;
-		border-left: 1px solid @lines;
+		border-left: @border;
 	}
 }
 
 .border_right {
-	border-right: 1px solid @lines;
+	border-right: @border;
+}
+
+.underlined {
+	border-bottom: @border;
 }
 
 .row {

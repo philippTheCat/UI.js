@@ -29,6 +29,9 @@ a:hover {
 .border_right {
   border-right: 1px solid #484848;
 }
+.underlined {
+  border-bottom: 1px solid #484848;
+}
 .row {
   float: left;
 }
