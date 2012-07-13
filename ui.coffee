@@ -17,6 +17,22 @@ class UIBase
 		@children.push child
 		child.set_parent(@)
 
+	draw_child: (child) ->
+		content = ""
+		if typeof child is "string"
+			content += child
+		else
+			content = content + child.draw()
+
+		content
+
+	draw_children: () ->
+		content = ""
+		for child in @children
+			content += @draw_child(child)
+
+		content
+
 class UIWidget extends UIBase
 	constructor: (@xsize,@ysize,@padding) ->
 		@padding = @padding || 5
@@ -29,9 +45,9 @@ class UIWidget extends UIBase
 		x = @xsize-(2*padding)
 		y = @ysize-(2*padding)
 
-		content = ""
-		for child in @children
-			content = content + child.draw()
+
+		content = @draw_children()
+		
 
 		endhtml = "<div class=\"UIWidget\" id=\"class_#{cl}\" style=\"height:#{y}px;width:#{x}px\" height=\"#{x}\" width=\"#{y}\">#{content}</div>"
 
@@ -108,7 +124,7 @@ class UIList extends UIBase
 	draw: () ->
 		list = "<ul class=\"UIList\">"
 		for item in @items
-			list = list + """<li class="underlined">#{item}</li>"""
+			list = list + """<li class="underlined">#{@draw_child(item)}</li>"""
 
 		list + "</ul>"
 

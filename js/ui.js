@@ -34,6 +34,28 @@
       return child.set_parent(this);
     };
 
+    UIBase.prototype.draw_child = function(child) {
+      var content;
+      content = "";
+      if (typeof child === "string") {
+        content += child;
+      } else {
+        content = content + child.draw();
+      }
+      return content;
+    };
+
+    UIBase.prototype.draw_children = function() {
+      var child, content, _i, _len, _ref;
+      content = "";
+      _ref = this.children;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        child = _ref[_i];
+        content += this.draw_child(child);
+      }
+      return content;
+    };
+
     return UIBase;
 
   })();
@@ -51,17 +73,12 @@
     }
 
     UIWidget.prototype.draw = function() {
-      var child, cl, content, endhtml, padding, x, y, _i, _len, _ref;
+      var cl, content, endhtml, padding, x, y;
       cl = "class";
       padding = 5;
       x = this.xsize - (2 * padding);
       y = this.ysize - (2 * padding);
-      content = "";
-      _ref = this.children;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        child = _ref[_i];
-        content = content + child.draw();
-      }
+      content = this.draw_children();
       endhtml = "<div class=\"UIWidget\" id=\"class_" + cl + "\" style=\"height:" + y + "px;width:" + x + "px\" height=\"" + x + "\" width=\"" + y + "\">" + content + "</div>";
       if (this.parent) {
         return this.parent.html(endhtml);
@@ -176,7 +193,7 @@
       _ref = this.items;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         item = _ref[_i];
-        list = list + ("<li class=\"underlined\">" + item + "</li>");
+        list = list + ("<li class=\"underlined\">" + (this.draw_child(item)) + "</li>");
       }
       return list + "</ul>";
     };
