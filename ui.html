@@ -1,10 +1,18 @@
 <html>
 	<head>
 
-		<script type="text/javascript" src="JQuery.js"></script>
-		<script type="text/javascript" src="ui.js"></script>
+		<script type="text/javascript" src="js/JQuery.js"></script>
+		<script type="text/javascript" src="js/ui.js"></script>
 		<script type="text/javascript">
 
+		$().ready(function(){
+			widget = new UI.UIWidget();
+			text = new UI.UIText("text1");
+			text2 = new UI.UIText("text2");
+			widget.children.push(text);
+			widget.children.push(text2);
+			widget.draw();
+		});
 
 		</script>
 	</head>
