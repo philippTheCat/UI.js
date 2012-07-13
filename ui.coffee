@@ -2,7 +2,7 @@ class UIBase
 	constructor: (@parent, @padding) ->
 			@children = []
 			@parent = null
-			@padding = @padding || 5
+			@padding = @padding || 10
 
 	draw: () ->
 		endhtml = ""
@@ -57,7 +57,7 @@ class UINavigation extends UIBase
 		for ind in @buttons
 			url = ind[0]
 			button = ind[1]
-			list = list + "<li><a href=\"#{url}\"> #{button} </a></li>"
+			list = list + """<li><a href=\"#{url}\"> #{button} </a></li>"""
 
 		list + "</ul>"
 
@@ -83,18 +83,18 @@ class UIRowLayout extends UIBase
 				content += child.draw()
 
 			border_right = "border_right"
-			if i == @rows
+
+			if i == @rownr
 				border_right = ""
+
 			console.log border_right, i
 
-			layout += """<div class=\"row_#{i} #{border_right}\" style=\"
-			width: #{Math.floor(xsize / @rownr)-@parent.padding}px; 
-			float:left; 
-			padding:#{Math.floor((@parent.padding/2))-1};
+			layout += """<div class=\"row_#{i} row #{border_right}\" style=\"
+			width: #{Math.floor(xsize / @rownr)-@parent.padding-1}px; 
+			padding:#{Math.floor((@parent.padding/2))-2};
 			\">#{content}</div>"""
 
-			""
-
+		
 		layout += "</div>"
 		layout
 

@@ -1,7 +1,7 @@
 @bg : #222;
 @lines: #484848;
 @col: #aaa;
-@stdpadding: 5px;
+@stdpadding: 10px;
 
 a:link, a:visited, a:active, a:hover {
 	color: @col;
@@ -32,4 +32,12 @@ a:hover {
 		padding-left: @stdpadding;
 		border-left: 1px solid @lines;
 	}
+}
+
+.border_right {
+	border-right: 1px solid @lines;
+}
+
+.row {
+	float:left;
 }
