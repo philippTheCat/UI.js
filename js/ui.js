@@ -11,7 +11,7 @@
       this.padding = padding;
       this.children = [];
       this.parent = null;
-      this.padding = this.padding || 5;
+      this.padding = this.padding || 10;
     }
 
     UIBase.prototype.draw = function() {
@@ -144,13 +144,11 @@
           content += child.draw();
         }
         border_right = "border_right";
-        if (i === this.rows) {
+        if (i === this.rownr) {
           border_right = "";
         }
         console.log(border_right, i);
-        layout += "<div class=\"row_" + i + " " + border_right + "\" style=\"\nwidth: " + (Math.floor(xsize / this.rownr) - this.parent.padding) + "px; \nfloat:left; \npadding:" + (Math.floor(this.parent.padding / 2) - 1) + ";\n\">" + content + "</div>";
-        "";
-
+        layout += "<div class=\"row_" + i + " row " + border_right + "\" style=\"\nwidth: " + (Math.floor(xsize / this.rownr) - this.parent.padding - 1) + "px; \npadding:" + (Math.floor(this.parent.padding / 2) - 2) + ";\n\">" + content + "</div>";
       }
       layout += "</div>";
       return layout;
