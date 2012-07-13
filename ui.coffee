@@ -11,17 +11,15 @@ class UIBase
 class UIWidget extends UIBase
 	draw: () ->
 		cl = "class"
-		x = 800
-		y = 600
-		
+		padding = 5;
+		x = 800-(2*padding)
+		y = 600-(2*padding)
 
 		content = ""
 		for child in @children
-			console.log @children
-			console.log child
 			content = content + child.draw()
 
-		endhtml = "<div class=\"UIWidget\" id=\"class_#{cl}\" height=\"#{x}\" width=\"#{y}\">#{content}</div>"
+		endhtml = "<div class=\"UIWidget\" id=\"class_#{cl}\" style=\"height:#{y}px;width:#{x}px\" height=\"#{x}\" width=\"#{y}\">#{content}</div>"
 
 		if @parent
 			@parent.html(endhtml)
@@ -35,9 +33,25 @@ class UIText extends UIBase
 	draw: () ->
 		"<p>#{@text}</p>"
 
+
+class UINavigation extends UIBase
+	constructor: (@buttons) ->
+
+	draw: () ->
+		list = "<ul class=\"UINavigation\">"
+		for ind in @buttons
+			url = ind[0]
+			button = ind[1]
+			list = list + "<li><a href=\"#{url}\"> #{button} </a></li>"
+
+		list + "</ul>"
+
+
+
 UI = {
 	"UIWidget":UIWidget,
-	"UIText":UIText
+	"UIText":UIText,
+	"UINavigation":UINavigation
 }
 
 window.UI = UI;
