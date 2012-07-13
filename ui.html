@@ -3,14 +3,24 @@
 
 		<script type="text/javascript" src="js/JQuery.js"></script>
 		<script type="text/javascript" src="js/ui.js"></script>
+		<link href="css/ui.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript">
 
 		$().ready(function(){
-			widget = new UI.UIWidget();
-			text = new UI.UIText("text1");
-			text2 = new UI.UIText("text2");
-			widget.children.push(text);
-			widget.children.push(text2);
+			widget = new UI.UIWidget(800,600);
+
+			nav = new UI.UINavigation([["#url","text1"],["#url2","text2"]]);
+			lay = new UI.UIRowLayout(3);
+			textl = new UI.UIText();
+			textc = new UI.UIText();
+			textr = new UI.UIText();
+
+			lay.set_row(0,textl);
+			lay.set_row(1,textc);
+			lay.set_row(2,textr);
+
+			widget.add_child(nav);
+			widget.add_child(lay);
 			widget.draw();
 		});
 

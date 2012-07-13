@@ -1,6 +1,9 @@
 class UIBase
-	constructor: (@parent) ->
+	constructor: (@parent, @padding) ->
 			@children = []
+			@parent = null
+			@padding = @padding || 5
+
 	draw: () ->
 		endhtml = ""
 		for child in @children
@@ -8,12 +11,23 @@ class UIBase
 
 		endhtml
 
+	set_parent: (@parent) ->
+ 
+	add_child: (child) ->
+		@children.push child
+		child.set_parent(@)
+
 class UIWidget extends UIBase
+	constructor: (@xsize,@ysize,@padding) ->
+		@padding = @padding || 5
+		@children = []
+
+
 	draw: () ->
 		cl = "class"
 		padding = 5;
-		x = 800-(2*padding)
-		y = 600-(2*padding)
+		x = @xsize-(2*padding)
+		y = @ysize-(2*padding)
 
 		content = ""
 		for child in @children
@@ -29,6 +43,7 @@ class UIWidget extends UIBase
 
 class UIText extends UIBase
 	constructor: (@text) ->
+		@text = @text || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 
 	draw: () ->
 		"<p>#{@text}</p>"
@@ -47,11 +62,51 @@ class UINavigation extends UIBase
 		list + "</ul>"
 
 
+class UIRowLayout extends UIBase
+	constructor: (@rownr) ->
+		@rows = []
+		for i in [1..@rownr]
+			@rows[i-1] = new Array()
+
+	draw: () ->
+		console.log @rows
+		xsize = @parent.xsize
+
+
+		layout = "<div class=\"rowlayout_#{@rownr}rows rows\" style=\"float:left\">"
+		for i in [1..@rownr]
+
+			content = ""
+			console.log i-1
+			for child in @rows[i-1]
+				console.log child
+				content += child.draw()
+
+			border_right = "border_right"
+			if i == @rows
+				border_right = ""
+			console.log border_right, i
+
+			layout += """<div class=\"row_#{i} #{border_right}\" style=\"
+			width: #{Math.floor(xsize / @rownr)-@parent.padding}px; 
+			float:left; 
+			padding:#{Math.floor((@parent.padding/2))-1};
+			\">#{content}</div>"""
+
+			""
+
+		layout += "</div>"
+		layout
+
+	set_row: (row,content) ->
+		@rows[row].push content
+
 
 UI = {
 	"UIWidget":UIWidget,
 	"UIText":UIText,
-	"UINavigation":UINavigation
+	"UINavigation":UINavigation,
+	"UIRowLayout":UIRowLayout
 }
 
 window.UI = UI;
